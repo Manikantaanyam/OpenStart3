@@ -160,3 +160,10 @@ export const PIXEL_PROJECTS: Projects[] = [
     url: "https://github.com/supabase/supabase",
   },
 ];
+
+export const NAV_ITEMS = [
+  { name: "Dashboard", path: "/" },
+  { name: "Projects", path: "/projects" },
+  { name: "Issues", path: "/issues" },
+  { name: "Watchlist", path: "/watchlist" },
+];

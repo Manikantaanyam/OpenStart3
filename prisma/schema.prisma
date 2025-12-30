@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Project {
+  id                Int      @id @default(autoincrement())
+
+  full_name         String   @unique 
+  display_name      String
+  description       String?
+  avatar_url        String?
+  stars             Int      @default(0)
+
+  tech_stack        String[]
+
+  last_activity_at  DateTime?
+  last_issue_sync   DateTime?
+  last_repo_sync    DateTime?
+
+  open_issues_count Int      @default(0)
+
+  issues            Issue[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([stars])
+  @@index([last_activity_at])
+}
+
+
+
+model Issue {
+  id           Int        @id @default(autoincrement())
+
+  github_id    String     @unique
+  number       Int
+  title        String
+  state        IssueState @default(OPEN)
+
+  labels       String[]
+  created_at   DateTime
+  updated_at   DateTime
+
+  projectId    Int
+  project      Project    @relation(fields: [projectId], references: [id])
+
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([projectId])
+  @@index([state])
+  @@index([created_at])
+  @@index([labels], type: Gin)
+}
+
+
+model GlobalIssueStats {
+  id               Int @id @default(autoincrement())
+  total_issues     Int      @default(0)
+  open_issues      Int      @default(0)
+  last_updated_at  DateTime @updatedAt
+}
+
+enum IssueState {
+  OPEN
+  CLOSED
+}
