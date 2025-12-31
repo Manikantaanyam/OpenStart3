@@ -167,3 +167,28 @@ export const NAV_ITEMS = [
   { name: "Issues", path: "/issues" },
   { name: "Watchlist", path: "/watchlist" },
 ];
+
+export const filters: { label: string; value: string }[] = [
+  { label: "All", value: "all" },
+  { label: "Good First Issue", value: "good-first-issue" },
+  { label: "Help Wanted", value: "help-wanted" },
+  { label: "Documentation", value: "documentation" },
+  { label: "Bugs", value: "bug" },
+  { label: "Features", value: "feature" },
+  { label: "UI/UX", value: "ui/ux" },
+];
+
+export const FILTER_STYLES: Record<string, string> = {
+  all: "bg-gray-500/10 text-gray-400 border-gray-500/20 hover:border-gray-500/50",
+  "good-first-issue":
+    "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:border-emerald-500/50",
+  "help-wanted":
+    "bg-blue-500/10 text-blue-400 border-blue-500/20 hover:border-blue-500/50",
+  documentation:
+    "bg-purple-500/10 text-purple-400 border-purple-500/20 hover:border-purple-500/50",
+  bug: "bg-red-500/10 text-red-400 border-red-500/20 hover:border-red-500/50",
+  feature:
+    "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:border-amber-500/50",
+  "ui/ux":
+    "bg-pink-500/10 text-pink-400 border-pink-500/20 hover:border-pink-500/50",
+};
