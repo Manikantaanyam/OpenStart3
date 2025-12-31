@@ -42,7 +42,7 @@ export default function IssueCard({ issue }: { issue: any }) {
                 key={idx}
                 className="px-2.5 py-1 rounded-md text-[10px] font-medium bg-white/5 border border-white/10 text-gray-400 group-hover:border-white/20 transition-colors"
               >
-                {label}
+                {label.toLowerCase()}
               </span>
             ))}
           </div>

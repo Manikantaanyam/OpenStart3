@@ -3,7 +3,6 @@ import prisma from "@/lib/prisma";
 
 export default async function Issues() {
   const data = await prisma.issue.findMany({
-    take: 15,
     include: {
       project: {
         select: {

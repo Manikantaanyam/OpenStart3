@@ -170,7 +170,7 @@ export const NAV_ITEMS = [
 
 export const filters: { label: string; value: string }[] = [
   { label: "All", value: "all" },
-  { label: "Good First Issue", value: "good-first-issue" },
+  { label: "Good First Issue", value: "good first issue"},
   { label: "Help Wanted", value: "help-wanted" },
   { label: "Documentation", value: "documentation" },
   { label: "Bugs", value: "bug" },
@@ -179,8 +179,8 @@ export const filters: { label: string; value: string }[] = [
 ];
 
 export const FILTER_STYLES: Record<string, string> = {
-  all: "bg-gray-500/10 text-gray-400 border-gray-500/20 hover:border-gray-500/50",
-  "good-first-issue":
+  all: "bg-yellow-500/10 text-yellow-400 border-gray-500/20 hover:border-gray-500/50",
+  "good first issue":
     "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:border-emerald-500/50",
   "help-wanted":
     "bg-blue-500/10 text-blue-400 border-blue-500/20 hover:border-blue-500/50",

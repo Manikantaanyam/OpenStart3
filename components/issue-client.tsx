@@ -15,7 +15,10 @@ export default function IssueClient({ issues }: { issues: any }) {
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
       const matchesFilter =
-        activeFilter === "all" || issue.labels.includes(activeFilter);
+        activeFilter === "all" ||
+        issue.labels.some((label: string) =>
+          label.toLowerCase().includes(activeFilter.toLowerCase())
+        );
       return matchesSearch && matchesFilter;
     });
   }, [activeFilter, searchQuery, issues]);
@@ -35,6 +38,7 @@ export default function IssueClient({ issues }: { issues: any }) {
             </div>
             <input
               type="text"
+              value={searchQuery}
               placeholder="Search issues..."
               onChange={(e) => setSearchQuery(e.target.value)}
               className="block w-full p-3 pl-10 text-sm text-white border border-white/10 rounded-xl bg-neutral-900 focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 outline-none transition-all"
