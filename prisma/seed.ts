@@ -4,9 +4,9 @@ import prisma from "@/lib/prisma";
 
 async function main() {
   console.log("started fetching");
-  const repoData = await fetchRepo("capsoftware", "cap");
+  const repoData = await fetchRepo("excalidraw", "excalidraw");
   const issueData = await fetchIssues(
-    `is:open is:issue repo:capsoftware/cap  label:"good first issue","feature",bug,documentation,"beginner friendly" sort:created-desc`
+    `is:open is:issue repo:excalidraw/excalidraw  label:"good first issue","feature",bug,documentation,"beginner friendly" sort:created-desc`
   );
 
   const project = await prisma.project.upsert({

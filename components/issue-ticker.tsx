@@ -68,7 +68,9 @@ export default function IssueTicker({
                   />
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-gray-100 group-hover:text-orange-400 transition-colors truncate">
-                      {currentIssue.title}
+                      {currentIssue.title.length > 100
+                        ? currentIssue.title.substring(0, 70) + "..."
+                        : currentIssue.title}
                     </span>
                     <span className="text-[10px] text-gray-500 bg-white/5 px-1.5 rounded hidden sm:inline-block">
                       {formatTimeAgo(currentIssue.created_at)}
