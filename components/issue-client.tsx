@@ -2,11 +2,23 @@
 import { FILTER_STYLES, filters } from "@/constants/constant";
 import { AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import IssueCard from "./issue-card";
 
 export default function IssueClient({ issues }: { issues: any }) {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredIssues = useMemo(() => {
+    return issues.filter((issue: any) => {
+      const matchesSearch = issue.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const matchesFilter =
+        activeFilter === "all" || issue.labels.includes(activeFilter);
+      return matchesSearch && matchesFilter;
+    });
+  }, [activeFilter, searchQuery, issues]);
 
   return (
     <div className="container mx-auto px-4 py-12 min-h-screen">
@@ -24,6 +36,7 @@ export default function IssueClient({ issues }: { issues: any }) {
             <input
               type="text"
               placeholder="Search issues..."
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="block w-full p-3 pl-10 text-sm text-white border border-white/10 rounded-xl bg-neutral-900 focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 outline-none transition-all"
             />
           </div>
@@ -52,11 +65,28 @@ export default function IssueClient({ issues }: { issues: any }) {
 
       <div className="space-y-4">
         <AnimatePresence mode="popLayout">
-          {issues.map((issue: any) => (
+          {filteredIssues.map((issue: any) => (
             <IssueCard key={issue.id} issue={issue} />
           ))}
         </AnimatePresence>
       </div>
+
+      {filteredIssues.length === 0 && (
+        <div className="text-center py-20 border border-dashed border-white/10 rounded-xl bg-white/5">
+          <p className="text-gray-500">
+            No issues found matching your criteria.
+          </p>
+          <button
+            onClick={() => {
+              setActiveFilter("all");
+              setSearchQuery("");
+            }}
+            className="mt-4 cursor-pointer text-orange-500 hover:underline"
+          >
+            Clear filters
+          </button>
+        </div>
+      )}
     </div>
   );
 }
