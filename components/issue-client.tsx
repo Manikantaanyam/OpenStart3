@@ -2,12 +2,39 @@
 import { FILTER_STYLES, filters } from "@/constants/constant";
 import { AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import IssueCard from "./issue-card";
+import { useInView } from "react-intersection-observer";
+import fetchPaginatedIssues from "@/utils/fetchIssuesPage";
 
-export default function IssueClient({ issues }: { issues: any }) {
+export default function IssueClient() {
+  const { ref, inView } = useInView();
+
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [issues, setIssues]: any = useState([]);
+  const [nextCursor, setNextCursor] = useState("");
+
+  async function loadIssues(nextCursor?: string) {
+    try {
+      const data = await fetchPaginatedIssues(nextCursor);
+
+      setIssues((prev: any) => [...prev, ...data.result]);
+      setNextCursor(data.cursor);
+    } catch (e) {
+      console.error("Failed to load issues", e);
+    }
+  }
+
+  useEffect(() => {
+    loadIssues();
+  }, []);
+
+  useEffect(() => {
+    if (inView && nextCursor) {
+      loadIssues(nextCursor);
+    }
+  }, [inView, nextCursor]);
 
   const filteredIssues = useMemo(() => {
     return issues.filter((issue: any) => {
@@ -91,6 +118,14 @@ export default function IssueClient({ issues }: { issues: any }) {
           </button>
         </div>
       )}
+
+      <div ref={ref} className="mt-8 flex justify-center items-center">
+        <div className="flex gap-2">
+          <span className="h-4 w-4 rounded-full bg-orange-300 animate-bounce [animation-delay:0ms]" />
+          <span className="h-4 w-4 rounded-full bg-orange-400 animate-bounce [animation-delay:150ms]" />
+          <span className="h-4 w-4 rounded-full bg-orange-500 animate-bounce [animation-delay:300ms]" />
+        </div>
+      </div>
     </div>
   );
 }
