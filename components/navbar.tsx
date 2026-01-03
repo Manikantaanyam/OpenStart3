@@ -9,6 +9,7 @@ import { useState } from "react";
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathName = usePathname();
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/50 backdrop-blur-xl">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -24,20 +25,26 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+          {NAV_ITEMS.map((item) => {
+            const isActive =
+              item.path === "/"
+                ? pathName === "/"
+                : pathName.startsWith(item.path);
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
                 ${
-                  pathName === item.path
+                  isActive
                     ? "bg-white/10 text-white"
                     : "text-gray-400 hover:text-white hover:bg-white/5"
                 } `}
-            >
-              {item.name}
-            </Link>
-          ))}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right side Actions */}
@@ -64,20 +71,26 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-white/10 bg-black p-4">
           <div className="flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors
+            {NAV_ITEMS.map((item) => {
+              const isActive =
+                item.path === "/"
+                  ? pathName === "/"
+                  : pathName.startsWith(item.path);
+              return (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors
                                     ${
-                                      pathName === item.path
+                                      isActive
                                         ? "bg-orange-500/20 text-orange-500"
                                         : "text-gray-400 hover:bg-white/5 hover:text-white"
                                     } `}
-              >
-                {item.name}
-              </Link>
-            ))}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

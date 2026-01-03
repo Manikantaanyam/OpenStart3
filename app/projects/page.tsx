@@ -10,7 +10,7 @@ export default async function Projects() {
     },
   });
 
-  console.log("pro", projects);
+ 
   return (
     <div className="container mx-auto px-4 py-12 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">

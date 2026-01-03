@@ -166,6 +166,7 @@ export const NAV_ITEMS = [
   { name: "Projects", path: "/projects" },
   { name: "Issues", path: "/issues" },
   { name: "Watchlist", path: "/watchlist" },
+  {name : "Add Project", path:"/add-project"}
 ];
 
 export const filters: { label: string; value: string }[] = [

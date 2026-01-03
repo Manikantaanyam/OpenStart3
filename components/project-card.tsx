@@ -21,9 +21,7 @@ export default function ProjectCard({ project }: { project: any }) {
 
           <div>
             <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://github.com/${project.full_name}`}
+              href={`/projects/issues/${project.full_name}`}
               className="font-bold cursor-pointer text-lg text-white group-hover:text-orange-400 transition-colors"
             >
               {project.display_name}
