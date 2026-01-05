@@ -49,6 +49,8 @@ export default function ProjectIssues() {
     loadIssues(repoName);
   }, []);
 
+  console.log("llllllllll", issues.length);
+
   if (issues.length == 0) {
     return <div>Loading....</div>;
   }

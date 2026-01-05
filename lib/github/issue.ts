@@ -10,6 +10,7 @@ type IssueNode = {
   labels: {
     nodes: { name: string }[];
   };
+  repository: any;
 };
 
 type SearchResponse = {
@@ -37,6 +38,9 @@ const SEARCH_ISSUES_QUERY = `
           state
           createdAt
           updatedAt
+          repository {
+            nameWithOwner 
+          }
           labels(first: 10) {
             nodes {
               name
@@ -60,6 +64,7 @@ export async function fetchIssues(queryString: string) {
     createdAt: Date;
     updatedAt: Date;
     labels: string[];
+    repository: any;
   }[] = [];
 
   while (hasNextPage) {
@@ -69,6 +74,9 @@ export async function fetchIssues(queryString: string) {
     });
 
     for (const issue of data.search.nodes) {
+      if (!issue || !issue.id) {
+        continue;
+      }
       allIssues.push({
         githubId: issue.id,
         number: issue.number,
@@ -76,7 +84,8 @@ export async function fetchIssues(queryString: string) {
         state: issue.state,
         createdAt: new Date(issue.createdAt),
         updatedAt: new Date(issue.updatedAt),
-        labels: issue.labels.nodes.map((l: any) => l.name),
+        labels: issue?.labels?.nodes.map((l: any) => l.name),
+        repository: issue.repository,
       });
     }
 

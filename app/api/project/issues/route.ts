@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   const project = await prisma.project.findUnique({
     where: { full_name: repoName },
     include: {
-      issues: { take: 10, orderBy: { createdAt: "desc" } },
+      issues: { orderBy: { createdAt: "desc" } },
     },
   });
 

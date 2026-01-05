@@ -67,9 +67,9 @@ export default function IssueTicker({
                     className="w-6 h-6 rounded-md border border-white/10"
                   />
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-gray-100 group-hover:text-orange-400 transition-colors truncate">
+                    <span className="text-xs sm:text-sm font-semibold text-gray-100 group-hover:text-orange-400 transition-colors truncate">
                       {currentIssue.title.length > 100
-                        ? currentIssue.title.substring(0, 70) + "..."
+                        ? currentIssue.title.substring(0, 40) + "..."
                         : currentIssue.title}
                     </span>
                     <span className="text-[10px] text-gray-500 bg-white/5 px-1.5 rounded hidden sm:inline-block">
