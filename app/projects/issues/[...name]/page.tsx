@@ -29,6 +29,9 @@ export default function ProjectIssues() {
   const params: any = useParams();
   const repoName = params.name.join("/");
 
+  console.log("pro", project);
+  console.log("issues", issues);
+
   useEffect(() => {
     async function loadIssues(repoName: string) {
       try {
@@ -50,10 +53,6 @@ export default function ProjectIssues() {
   }, []);
 
   console.log("llllllllll", issues.length);
-
-  if (issues.length == 0) {
-    return <div>Loading....</div>;
-  }
 
   return (
     <div className="text-white">
@@ -88,7 +87,7 @@ export default function ProjectIssues() {
             </AnimatePresence>
           )}
 
-          {!loading && issues.length === 0 && (
+          {issues.length === 0 && (
             <p className="text-gray-500">
               No issues found for this repository.
             </p>
