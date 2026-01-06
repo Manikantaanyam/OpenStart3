@@ -14,6 +14,7 @@ export default function IssueClient() {
   const [searchQuery, setSearchQuery] = useState("");
   const [issues, setIssues]: any = useState([]);
   const [nextCursor, setNextCursor] = useState("");
+  const [issueCount, setIssueCount] = useState("");
 
   async function loadIssues(nextCursor?: string) {
     try {
@@ -21,6 +22,7 @@ export default function IssueClient() {
 
       setIssues((prev: any) => [...prev, ...data.result]);
       setNextCursor(data.cursor);
+      setIssueCount(data.issueCount.toString());
     } catch (e) {
       console.error("Failed to load issues", e);
     }
@@ -29,6 +31,8 @@ export default function IssueClient() {
   useEffect(() => {
     loadIssues();
   }, []);
+
+  console.log("iii", issueCount);
 
   useEffect(() => {
     if (inView && nextCursor) {
@@ -54,9 +58,15 @@ export default function IssueClient() {
     <div className="container mx-auto px-4 py-12 min-h-screen">
       <div className="mb-10">
         <h1 className="text-4xl font-bold text-white mb-2">Open Issues</h1>
-        <p className="text-gray-400 mb-8">
+        <p className="text-gray-400 mb-2">
           Best Beginner Friendly issues for you to contribute
         </p>
+
+        {issues.length > 0 && (
+          <p className="text-orange-500 font-mono mt-2 mb-8">
+            found {issueCount} open issues
+          </p>
+        )}
 
         <div className="flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center">
           <div className="relative w-full lg:w-96 group">

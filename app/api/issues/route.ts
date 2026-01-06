@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const queryOptions: any = {
     take: LIMIT + 1,
     orderBy: {
-      id: "asc",
+      created_at: "desc",
     },
     include: {
       project: { select: { avatar_url: true, full_name: true } },
@@ -22,6 +22,8 @@ export async function GET(req: NextRequest) {
 
   const data = await prisma.issue.findMany(queryOptions);
 
+  const issueCount = await prisma.issue.count();
+
   let nextCursor;
   if (data.length > LIMIT) {
     nextCursor = data[data.length - 1].id;
@@ -30,5 +32,6 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     result: data,
     cursor: nextCursor,
+    issueCount,
   });
 }
