@@ -13,6 +13,7 @@ export default function AddProject() {
     repoName: "",
     url: "",
   });
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
 
   const repoRegex = /^[a-zA-Z0-9-]+\/[a-zA-Z0-9-._]+$/;
@@ -38,6 +39,7 @@ export default function AddProject() {
     e.preventDefault();
     if (validate()) {
       try {
+        setLoading(true);
         const response = await fetch("/api/add-project", {
           method: "POST",
           headers: {
@@ -49,11 +51,14 @@ export default function AddProject() {
         if (response.ok) {
           const result = await response.json();
           console.log("Success:", result);
+          setLoading(false);
         } else {
           console.error("Server error:", response.statusText);
         }
       } catch (e) {
         console.error("Network error:", e);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -130,9 +135,14 @@ export default function AddProject() {
 
           <button
             type="submit"
-            className="mt-4 w-full bg-linear-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white font-semibold py-3 rounded-xl shadow-lg shadow-orange-500/20 transition-all active:scale-[0.98]"
+            disabled={loading}
+            className="mt-4 w-full bg-linear-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white font-semibold py-3 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 transition-all active:scale-[0.98] disabled:opacity-80 disabled:cursor-not-allowed"
           >
-            Submit Project
+            {loading ? (
+              <div className="w-6 h-6 rounded-full animate-spin border-2 border-white border-t-transparent" />
+            ) : (
+              <span>submit project</span>
+            )}
           </button>
         </form>
       </div>

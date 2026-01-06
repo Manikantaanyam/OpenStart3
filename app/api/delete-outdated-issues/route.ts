@@ -4,19 +4,26 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const threeMonthsAgo = new Date();
-    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 2);
+    const fifteenDaysAgo = new Date();
+    fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
 
     const deleted = await prisma.issue.deleteMany({
       where: {
         state: IssueState.OPEN,
         created_at: {
-          lt: threeMonthsAgo,
+          lt: fifteenDaysAgo,
         },
       },
     });
 
+    const deleted1 = await prisma.issue.deleteMany({
+      where: {
+        state: "CLOSED",
+      },
+    });
+
     console.log(`Deleted ${deleted.count} old open issues.`);
+    console.log(`Deleted ${deleted1.count} old open issues.`);
     return NextResponse.json({ msg: "deleted issues" });
   } catch (e) {
     console.log("e", e);

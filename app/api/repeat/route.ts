@@ -5,6 +5,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
+    const labels = [
+      "good first issue",
+      "feature",
+      "bug",
+      "documentation",
+      "beginner friendly",
+    ];
+
     const data = await prisma.project.findMany({
       select: {
         full_name: true,

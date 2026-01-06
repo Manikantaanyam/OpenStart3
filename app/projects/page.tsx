@@ -10,7 +10,6 @@ export default async function Projects() {
     },
   });
 
- 
   return (
     <div className="container mx-auto px-4 py-12 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
@@ -21,18 +20,6 @@ export default async function Projects() {
           <p className="text-gray-400">
             Discover the best open source projects
           </p>
-        </div>
-
-        <div className="flex gap-3">
-          <button className="flex items-center gap-2  p-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-gray-300 transition-colors">
-            <Filter className="w-4 h-4" />
-          </button>
-
-          <select className="bg-black border border-white/10 text-gray-300 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2.5">
-            <option>Most Stars</option>
-            <option>Most Issues</option>
-            <option>Recently Active</option>
-          </select>
         </div>
       </div>
 

@@ -165,13 +165,12 @@ export const NAV_ITEMS = [
   { name: "Dashboard", path: "/" },
   { name: "Projects", path: "/projects" },
   { name: "Issues", path: "/issues" },
-  { name: "Watchlist", path: "/watchlist" },
-  {name : "Add Project", path:"/add-project"}
+  { name: "Add Project", path: "/add-project" },
 ];
 
 export const filters: { label: string; value: string }[] = [
   { label: "All", value: "all" },
-  { label: "Good First Issue", value: "good first issue"},
+  { label: "Good First Issue", value: "good first issue" },
   { label: "Help Wanted", value: "help-wanted" },
   { label: "Documentation", value: "documentation" },
   { label: "Bugs", value: "bug" },

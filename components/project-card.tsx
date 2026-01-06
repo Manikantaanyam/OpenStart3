@@ -1,7 +1,7 @@
 "use client";
 import formatTimeAgo from "@/utils/format-time";
 import { motion } from "framer-motion";
-import { Eye, GitCommit, Star } from "lucide-react";
+import { GitCommit, Star } from "lucide-react";
 
 export default function ProjectCard({ project }: { project: any }) {
   return (
@@ -31,14 +31,8 @@ export default function ProjectCard({ project }: { project: any }) {
             </p>
           </div>
         </div>
-        <button
-          onClick={() => alert("feature not available yet")}
-          className="cursor-pointer text-orange-500 p-2 rounded-lg transition-all duration-200 bg-orange-500/10 hover:bg-orange-500/20"
-        >
-          <Eye className="w-4 h-4" />
-        </button>
       </div>
-      <p className="text-sm text-gray-400 mb-6 line-clamp-2 h-10 leading-relaxed">
+      <p className="text-sm text-gray-400 mb-6 line-clamp-2 h-12 leading-relaxed">
         {project.description}
       </p>
 
@@ -56,7 +50,7 @@ export default function ProjectCard({ project }: { project: any }) {
       <div className="pt-4 border-t border-dashed border-white/10 flex items-center justify-between text-xs">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 text-gray-300">
-            <Star className="w-3.5 h-3.5" />
+            <Star className="w-3.5 h-3.5 text-yellow-400 fill-amber-400" />
             <span className="font-mono">{project.stars}</span>
           </div>
           <div className="flex items-center gap-1.5 text-gray-500">
